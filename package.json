@@ -4,7 +4,7 @@
   "private": true,
   "description": "Throwaway repo testing whether a dependabot.yml allow list narrows security updates. See MercuryTechnologies/mercury-web FDX-1391.",
   "dependencies": {
-    "express": "4.16.0",
+    "express": "4.22.2",
     "lodash": "4.17.15"
   }
 }
