@@ -1,0 +1,42 @@
+# Scopes Dependabot version updates to the TypeScript 7 toolchain. The
+# npm-aliased compilers can't be covered here; notify-on-typescript-compiler-update.yml
+# watches those. See docs/05-Platform/dependency-update-tracking.md.
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    # Do not remove: most options here, `allow` included, also apply to security
+    # updates, which would narrow those from all of package.json down to the
+    # allow list. An entry that sets target-branch is excluded from
+    # security-update configuration, and master is already the default branch,
+    # so this scopes the allow list to version updates only.
+    target-branch: 'master'
+    schedule:
+      interval: 'weekly' # Mondays by default
+    # Overriding the default ceiling of 5, which the allow list can already saturate
+    # on its own (the oxc group + 4 singletons), so one lingering PR would
+    # block the next batch. There is no unlimited value, and security PRs are
+    # exempt from this limit and counted against their own.
+    open-pull-requests-limit: 10
+    # Match npmMinimalAgeGate (7 days) in .yarnrc.yml.
+    cooldown:
+      default-days: 7
+    allow:
+      - dependency-name: 'oxlint-tsgolint'
+      - dependency-name: 'oxlint'
+      - dependency-name: '@oxlint/plugins'
+      - dependency-name: 'oxlint-plugin-eslint'
+      - dependency-name: 'eslint-plugin-oxlint'
+      - dependency-name: 'eslint-plugin-react-hooks'
+      - dependency-name: 'oxfmt'
+      - dependency-name: 'knip'
+      - dependency-name: 'ts-node'
+      - dependency-name: 'typed-css-modules'
+    groups:
+      # The oxc toolchain releases in near-lockstep; batch it into one PR.
+      oxc-toolchain:
+        patterns:
+          - 'oxlint*'
+          - 'oxfmt'
+          - '@oxlint/*'
+          - 'eslint-plugin-oxlint'
