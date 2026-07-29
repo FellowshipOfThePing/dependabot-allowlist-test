@@ -40,3 +40,5 @@ updates:
           - 'oxfmt'
           - '@oxlint/*'
           - 'eslint-plugin-oxlint'
+
+# Touched to trigger a fresh version-update run.
